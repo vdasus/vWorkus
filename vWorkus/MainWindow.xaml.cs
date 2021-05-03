@@ -21,7 +21,7 @@ namespace vWorkus
         private string _pathToAlertFile;
 
         private TimeSpan Remaining => _endTime - DateTime.Now;
-
+        
         private DateTime StartTime { get; set; }
         
 
@@ -43,10 +43,7 @@ namespace vWorkus
             _step = Settings.Default.StepInMinutes * MINUTE_TO_MS;
             _pathToAlertFile = Settings.Default.AlertSoundPath;
 
-            Dispatcher.Invoke(() =>
-            {
-                LbCountdown.Content = GetRemainingInString();
-            });
+            ResetCaption();
         }
 
         private void SetTimer()
@@ -60,17 +57,13 @@ namespace vWorkus
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                LbCountdown.Content = GetRemainingInString();
-            });
-
+            ResetCaption();
             if (IsDone()) MakeStop();
         }
 
         private string GetRemainingInString()
         {
-            return $"{Remaining.Hours:00}:{Remaining.Minutes:00}";
+            return $@"{Remaining.Hours:00}:{Remaining.Minutes:00} {(_aTimer is {Enabled: false}?"||":"")}";
         }
 
         private DateTime GetTotalTimeFromSettings(string defaultTotalTime)
@@ -94,7 +87,7 @@ namespace vWorkus
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Warning;
 
-            PlayAudio(Settings.Default.AlertSoundPath);
+            PlayAudio(_pathToAlertFile);
 
             Dispatcher.Invoke(() =>
             {
@@ -117,6 +110,26 @@ namespace vWorkus
             {
                 Thread.Sleep(1000);
             }
+        }
+
+        private void BtStart_Click(object sender, RoutedEventArgs e)
+        {
+            _aTimer.Enabled = true;
+            ResetCaption();
+        }
+
+        private void BtPause_Click(object sender, RoutedEventArgs e)
+        {
+            _aTimer.Enabled = false;
+            ResetCaption();
+        }
+
+        private void ResetCaption()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                LbCountdown.Content = GetRemainingInString();
+            });
         }
     }
 }

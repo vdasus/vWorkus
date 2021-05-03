@@ -15,8 +15,8 @@
         <StackPanel>
             <Label x:Name="LbCountdown" Content="08:00" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
             <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="BtStart" Content="Start" Margin="2" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}"/>
-                <Button x:Name="BtPause" Content="Pause" Margin="2" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}"/>
+                <Button x:Name="BtStart" Content="Start" Margin="0 0 2 0" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtStart_Click"/>
+                <Button x:Name="BtPause" Content="Pause" Margin="2 0 0 0" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtPause_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>
