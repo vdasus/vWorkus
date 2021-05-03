@@ -49,5 +49,14 @@ namespace vWorkus.Properties {
                 return ((string)(this["AlertSoundPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int TimeDelta {
+            get {
+                return ((int)(this["TimeDelta"]));
+            }
+        }
     }
 }

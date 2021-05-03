@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Timers;
@@ -15,6 +16,8 @@ namespace vWorkus
     /// </summary>
     public partial class MainWindow
     {
+        private static int TimeDelta => Settings.Default.TimeDelta;
+
         private static Timer _aTimer;
         private DateTime _endTime;
         private int _step;
@@ -28,7 +31,7 @@ namespace vWorkus
         public MainWindow()
         {
             StartTime = DateTime.Now;
-
+            
             InitializeComponent();
 
             PrepareSettings();
@@ -43,6 +46,12 @@ namespace vWorkus
             _endTime = GetTotalTimeFromSettings(Settings.Default.TotalTime);
             _step = Settings.Default.StepInMinutes * MINUTE_TO_MS;
             _pathToAlertFile = Settings.Default.AlertSoundPath;
+
+            Dispatcher.Invoke(() =>
+            {
+                BtPlusTime.Content = "+" + TimeDelta;
+                BtMinusTime.Content = "-" + TimeDelta;
+            });
 
             ResetCaption();
         }
@@ -141,6 +150,18 @@ namespace vWorkus
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void BtPlus_OnClick(object sender, RoutedEventArgs e)
+        {
+            _endTime += TimeSpan.FromMinutes(TimeDelta);
+            ResetCaption();
+        }
+
+        private void BtMinus_OnClick(object sender, RoutedEventArgs e)
+        {
+            _endTime -= TimeSpan.FromMinutes(TimeDelta);
+            ResetCaption();
         }
     }
 }
