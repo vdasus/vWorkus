@@ -24,6 +24,15 @@
                         Visibility="Visible"
                         ToolTipText="vWorkus"
                         IconSource="{StaticResource AppIcon}"
-                        />
+                        MenuActivation="LeftOrRightClick">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu
+                    Background="LightCoral">
+                    <MenuItem Header="Toggle visibility" Click="ToggleVisibility_OnClick" />
+                    <MenuItem Header="Exit" Click="Exit_OnClick" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+
     </Grid>
 </mah:MetroWindow>

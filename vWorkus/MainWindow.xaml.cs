@@ -21,9 +21,9 @@ namespace vWorkus
         private string _pathToAlertFile;
 
         private TimeSpan Remaining => _endTime - DateTime.Now;
-        
+
         private DateTime StartTime { get; set; }
-        
+
 
         public MainWindow()
         {
@@ -63,7 +63,7 @@ namespace vWorkus
 
         private string GetRemainingInString()
         {
-            return $@"{Remaining.Hours:00}:{Remaining.Minutes:00} {(_aTimer is {Enabled: false}?"||":"")}";
+            return $@"{Remaining.Hours:00}:{Remaining.Minutes:00} {(_aTimer is { Enabled: false } ? "||" : "")}";
         }
 
         private DateTime GetTotalTimeFromSettings(string defaultTotalTime)
@@ -95,7 +95,7 @@ namespace vWorkus
             });
 
             MessageBox.Show(messageBoxText, CAPTION, button, icon, MessageBoxResult.Yes);
-            
+
             Environment.Exit(0);
         }
 
@@ -130,6 +130,16 @@ namespace vWorkus
             {
                 LbCountdown.Content = GetRemainingInString();
             });
+        }
+
+        private void ToggleVisibility_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState == WindowState.Minimized ? WindowState.Normal : WindowState.Minimized;
+        }
+
+        private void Exit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
