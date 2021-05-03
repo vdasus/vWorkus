@@ -33,6 +33,7 @@ namespace vWorkus
 
             PrepareSettings();
             SetTimer();
+            ShowInTaskbar = false;
         }
 
         private void PrepareSettings()
