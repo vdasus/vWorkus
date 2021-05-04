@@ -25,7 +25,7 @@ namespace vWorkus.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("07:30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("07:00")]
         public string TotalTime {
             get {
                 return ((string)(this["TotalTime"]));

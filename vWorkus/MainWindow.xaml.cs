@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Threading;
 using System.Timers;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using NAudio.Wave;
 using vWorkus.Properties;
@@ -38,6 +39,13 @@ namespace vWorkus
             SetTimer();
             ShowInTaskbar = false;
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
+
 
         private void PrepareSettings()
         {
@@ -162,6 +170,11 @@ namespace vWorkus
         {
             _endTime -= TimeSpan.FromMinutes(TimeDelta);
             ResetCaption();
+        }
+
+        private void BtExit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Exit_OnClick(sender, e);
         }
     }
 }
