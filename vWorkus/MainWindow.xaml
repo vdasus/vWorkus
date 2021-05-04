@@ -13,19 +13,49 @@
              ResizeMode="NoResize"
              Topmost="True" 
              MouseDown="Window_MouseDown"
+             AllowsTransparency="True"
              Title="">
-    <!--GlowBrush="DarkSlateGray"
-    WindowTransitionsEnabled="True"
-    ShowMaxRestoreButton="False"-->
-<Grid>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#CECECE" />
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="./#Segoe UI" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="0" Background="{TemplateBinding Background}" Margin="1 0 1 0">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E59400" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
         <StackPanel>
-            <Label x:Name="LbCountdown" Content="08:00" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
+            <Label x:Name="LbCountdown" Content="08:00" HorizontalAlignment="Center" FontSize="40" Foreground="DimGray" FontWeight="Bold"/>
             <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="BtPlusTime" Content="+10m" Margin="0 0 2 0" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtPlus_OnClick"/>
-                <Button x:Name="BtMinusTime" Content="-10m" Margin="0 0 2 0" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtMinus_OnClick"/>
-                <Button x:Name="BtStart" Content="Start" Margin="0 0 2 0" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtStart_Click"/>
-                <Button x:Name="BtPause" Content="Pause" Margin="0 0 2 0" Width="50" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtPause_Click"/>
-                <Button x:Name="BtExit" Content="X" Margin="0 0 0 0" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtExit_OnClick"/>
+                <Button x:Name="BtPlusTime" Content="+10m" Margin="0 0 2 0" Click="BtPlus_OnClick"/>
+                <Button x:Name="BtMinusTime" Content="-10m" Margin="0 0 2 0" Click="BtMinus_OnClick"/>
+                <Button x:Name="BtSwitchPause" Content="Pause" Margin="0 0 2 0" Click="BtSwitchPause_Click"/>
+                <Button x:Name="BtExit" Content="X" Margin="0 0 0 0" Click="BtExit_OnClick"/>
             </StackPanel>
         </StackPanel>
         <tb:TaskbarIcon x:Name="NotifyIcon"

@@ -81,7 +81,8 @@ namespace vWorkus
 
         private string GetRemainingInString()
         {
-            return $@"{Remaining.Hours:00}:{Remaining.Minutes:00} {(_aTimer is { Enabled: false } ? "||" : "")}";
+            var sep = _aTimer is {Enabled: false} ? " || " : "";
+            return $@"{sep}{Remaining.Hours:00}:{Remaining.Minutes:00}{sep}";
         }
 
         private DateTime GetTotalTimeFromSettings(string defaultTotalTime)
@@ -92,7 +93,7 @@ namespace vWorkus
 
         private bool IsDone()
         {
-            return DateTime.Now >= _endTime;
+            return DateTime.Now > _endTime;
         }
 
         private void MakeStop()
@@ -130,18 +131,6 @@ namespace vWorkus
             }
         }
 
-        private void BtStart_Click(object sender, RoutedEventArgs e)
-        {
-            _aTimer.Enabled = true;
-            ResetCaption();
-        }
-
-        private void BtPause_Click(object sender, RoutedEventArgs e)
-        {
-            _aTimer.Enabled = false;
-            ResetCaption();
-        }
-
         private void ResetCaption()
         {
             Dispatcher.Invoke(() =>
@@ -149,7 +138,7 @@ namespace vWorkus
                 LbCountdown.Content = GetRemainingInString();
             });
         }
-
+        
         private void ToggleVisibility_OnClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState == WindowState.Minimized ? WindowState.Normal : WindowState.Minimized;
@@ -158,6 +147,13 @@ namespace vWorkus
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void BtSwitchPause_Click(object sender, RoutedEventArgs e)
+        {
+            _aTimer.Enabled = !_aTimer.Enabled;
+            BtSwitchPause.Content = _aTimer.Enabled ? "Pause" : "Start";
+            ResetCaption();
         }
 
         private void BtPlus_OnClick(object sender, RoutedEventArgs e)
