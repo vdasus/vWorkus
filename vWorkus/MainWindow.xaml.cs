@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Timers;
@@ -7,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using NAudio.Wave;
+using NLog;
 using vWorkus.Properties;
 using Timer = System.Timers.Timer;
 
@@ -17,6 +17,8 @@ namespace vWorkus
     /// </summary>
     public partial class MainWindow
     {
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         private static int TimeDelta => Settings.Default.TimeDelta;
 
         private static Timer _aTimer;
@@ -32,6 +34,7 @@ namespace vWorkus
         public MainWindow()
         {
             StartTime = DateTime.Now;
+            Log.Info($"Started at {StartTime:HH:mm}");
             
             InitializeComponent();
 
@@ -40,18 +43,14 @@ namespace vWorkus
             ShowInTaskbar = false;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                DragMove();
-        }
-
-
         private void PrepareSettings()
         {
             const int MINUTE_TO_MS = 1000 * 60;
 
             _endTime = GetTotalTimeFromSettings(Settings.Default.TotalTime);
+            Log.Trace($"Settings ET: {Settings.Default.TotalTime}");
+            Log.Trace($"Prepared ET: {_endTime}");
+
             _step = Settings.Default.StepInMinutes * MINUTE_TO_MS;
             _pathToAlertFile = Settings.Default.AlertSoundPath;
 
@@ -91,6 +90,14 @@ namespace vWorkus
             return DateTime.Now + tt;
         }
 
+        private void ResetCaption()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                LbCountdown.Content = GetRemainingInString();
+            });
+        }
+
         private bool IsDone()
         {
             return DateTime.Now > _endTime;
@@ -98,9 +105,11 @@ namespace vWorkus
 
         private void MakeStop()
         {
+            const string CAPTION = "vWorkus";
+
             _aTimer.Stop();
 
-            const string CAPTION = "vWorkus";
+            Log.Info($"Stopped at {DateTime.Now:HH:mm}");
 
             string messageBoxText = $"Relax now, job is done. \n{StartTime:HH.mm}-{DateTime.Now:HH:mm}";
             MessageBoxButton button = MessageBoxButton.OK;
@@ -131,14 +140,6 @@ namespace vWorkus
             }
         }
 
-        private void ResetCaption()
-        {
-            Dispatcher.Invoke(() =>
-            {
-                LbCountdown.Content = GetRemainingInString();
-            });
-        }
-        
         private void ToggleVisibility_OnClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState == WindowState.Minimized ? WindowState.Normal : WindowState.Minimized;
@@ -146,11 +147,14 @@ namespace vWorkus
 
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
+            Log.Info($"Stopped by exit at {DateTime.Now:HH:mm}");
             Environment.Exit(0);
         }
 
         private void BtSwitchPause_Click(object sender, RoutedEventArgs e)
         {
+            Log.Info(@$"Start\pause at {DateTime.Now:HH:mm}");
+
             _aTimer.Enabled = !_aTimer.Enabled;
             BtSwitchPause.Content = _aTimer.Enabled ? "Pause" : "Start";
             ResetCaption();
@@ -171,6 +175,12 @@ namespace vWorkus
         private void BtExit_OnClick(object sender, RoutedEventArgs e)
         {
             Exit_OnClick(sender, e);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
     }
 }

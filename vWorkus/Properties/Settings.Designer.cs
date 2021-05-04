@@ -13,7 +13,7 @@ namespace vWorkus.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -23,39 +23,51 @@ namespace vWorkus.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("07:00")]
         public string TotalTime {
             get {
                 return ((string)(this["TotalTime"]));
             }
+            set {
+                this["TotalTime"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int StepInMinutes {
             get {
                 return ((int)(this["StepInMinutes"]));
             }
+            set {
+                this["StepInMinutes"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("D:\\REPO\\Github\\TickEvery\\sound\\hourlychimebeg.mp3")]
         public string AlertSoundPath {
             get {
                 return ((string)(this["AlertSoundPath"]));
             }
+            set {
+                this["AlertSoundPath"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int TimeDelta {
             get {
                 return ((int)(this["TimeDelta"]));
+            }
+            set {
+                this["TimeDelta"] = value;
             }
         }
     }

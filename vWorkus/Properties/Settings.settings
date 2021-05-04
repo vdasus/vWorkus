@@ -2,16 +2,16 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="vWorkus.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="TotalTime" Type="System.String" Scope="Application">
+    <Setting Name="TotalTime" Type="System.String" Scope="User">
       <Value Profile="(Default)">07:00</Value>
     </Setting>
-    <Setting Name="StepInMinutes" Type="System.Int32" Scope="Application">
+    <Setting Name="StepInMinutes" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="AlertSoundPath" Type="System.String" Scope="Application">
+    <Setting Name="AlertSoundPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\REPO\Github\TickEvery\sound\hourlychimebeg.mp3</Value>
     </Setting>
-    <Setting Name="TimeDelta" Type="System.Int32" Scope="Application">
+    <Setting Name="TimeDelta" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
   </Settings>
